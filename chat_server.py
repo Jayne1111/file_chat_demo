@@ -8,7 +8,7 @@ import json
 import os,sys
 
 
-conf = json.load(open("C:\\Users\lx\Documents\Visual Studio Code\聊天室\server_conf.json"))  # 加载配置信息
+conf = json.load(open(r"C:\Users\lx\Documents\Visual Studio Code\聊天室\server_conf.json"))  # 加载配置信息
 # dest_file_abs_path = os.path.abspath(sys.argv[1])
 # dest_file_parent_path = os.path.dirname(dest_file_abs_path)
 # dest_file_name = os.path.basename(dest_file_abs_path)

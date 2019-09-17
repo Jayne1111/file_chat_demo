@@ -1,9 +1,9 @@
 {
-    "app_server": "127.0.0.1",
-    "app_port": 99999,
-    "db_server": "127.0.0.1",
-    "db_port": 3306,
+    "app_server_ip": "127.0.0.1",
+    "app_server_port": 9999,
+    "db_server_ip": "192.168.10.171",
+    "db_server_port": 3306,
     "db_user": "fxj",
     "db_password": "123456",
-    "db_name": "test"
+    "db_name": "fxjdb"
 }

@@ -7,6 +7,8 @@ import tkinter as tk
 import tkinter.messagebox
 import json
 
+
+
 def index_page():
     '''
     函数内容：聊天登录注册主页面
@@ -45,14 +47,18 @@ def chat_window():
     mainwdn = tk.Tk()
     mainwdn = title("P1901班专属聊天室")
     
+
+    # 设置聊天框
     chat_record_box = tk.Text(mainwdn)
     chat_record_box.configure(state=tk.DISABLED)
     chat_record_box.pack(padx=10, pady=10)
     
+    # 设置输入框
     chat_msg_box = tk.Text(mainwdn)
     chat_msg_box.configure(width=65, height=5)
     chat_msg_box.pack(side=tk.LEFT, padx=10, pady=10)
     
+
     send_msg_btn = tk.Button(mainwdn, text="发 送", command=on_send_msg)
     send_msg_btn.pack(side=tk.RIGHT, padx=10, pady=10, ipadx=15, ipady=15)
     
@@ -79,18 +85,18 @@ def login_in():
     tk.Label(mainwdn_log, text='确认密码：', font=('Arial', 14)).place(x=25, y=120)
     tk.Label(mainwdn_log, text='手机号：', font=('Arial', 14)).place(x=25, y=150)
     tk.Label(mainwdn_log, text='邮箱：', font=('Arial', 14)).place(x=25, y=180)
-    log_uname = tk.Entry(mainwdn_register, show=None, font=('Arial', 12))   # 输入注册账号信息的Entry控件
+    log_uname = tk.Entry(mainwdn_log, show=None, font=('Arial', 12))   # 输入注册账号信息的Entry控件
     log_uname.place(x=150, y=60)
-    log_passwd = tk.Entry(mainwdn_register, show=None, font=('Arial', 12))   # 输入注册密码信息的Entry控件
+    log_passwd = tk.Entry(mainwdn_log, show=None, font=('Arial', 12))   # 输入注册密码信息的Entry控件
     log_passwd.place(x=150, y=90)
-    log_np = tk.Entry(mainwdn_register, show=None, font=('Arial', 12))  # 第二次输入注册密码信息的Entry控件
+    log_np = tk.Entry(mainwdn_log, show=None, font=('Arial', 12))  # 第二次输入注册密码信息的Entry控件
     log_np.place(x=150, y=120)
-    log_phone = tk.Entry(mainwdn_register, show=None, font=('Arial', 12))   # 输入注册手机号信息的Entry控件
+    log_phone = tk.Entry(mainwdn_log, show=None, font=('Arial', 12))   # 输入注册手机号信息的Entry控件
     log_phone.place(x=150, y=150)
-    log_email = tk.Entry(mainwdn_register, show=None, font=('Arial', 12))   # 输入注册邮箱信息的Entry控件
+    log_email = tk.Entry(mainwdn_log, show=None, font=('Arial', 12))   # 输入注册邮箱信息的Entry控件
     log_email.place(x=150, y=180)
     
-    tk.Button(mainwdn_log, text='确认注册', font=('Arial', 14), command=client_login_send).place(x=180, y=220)
+    tk.Button(mainwdn_log, text='注册', font=('Arial', 14), command=client_login_send).place(x=180, y=220)
     
     mainwdn.mainloop()
 
@@ -130,7 +136,7 @@ def client_login_recv():
         rsp = json.loads(json_data)
         if rsp["error_code"] == 0:
             # print("登录成功！")
-            chat_page()
+            index_page()
 
 
 def client_reg_send():
@@ -195,6 +201,7 @@ def reg_failed_page():
     
     mainwdn.mainloop()
 
+
 def client_reg_recv():
     '''
     函数功能：用户注册响应
@@ -226,9 +233,9 @@ def on_send_msg():
     函数功能：发送聊天消息
     '''
     nick_name = reg_uname.get()
-    chat_msg = chat_msg_box.get(1.0, "end")
+    chat_msg = chat_msg_box.get(1.0)
     if chat_msg == "\n":
-        return
+        return 
 
     chat_data = nick_name + ":" + chat_msg
     chat_data = chat_data.encode()
@@ -268,19 +275,18 @@ def recv_chat_data():
                 else:
                     # 显示
                     chat_record_box.configure(state=NORMAL)
-                    chat_record_box.insert("end", msg_content_data.decode() + "\n")
+                    chat_record_box.insert(msg_content_data.decode() + "\n")
                     chat_record_box.configure(state=DISABLED)
                     continue
                 break
         finally:
                 sock.close()
                 sock = socket.socket()
-                sock.connect(("127.0.0.1", 9999))
+                sock.connect(("192.168.10.171", 9999))
 
 sock = socket.socket()
-sock.connect(("127.0.0.1", 9999))
+sock.connect(("192.168.10.171", 9999))
 
 if __name__ == "__main__":
     index_page()
 
-sock.close()
